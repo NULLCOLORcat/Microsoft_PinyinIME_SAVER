@@ -6,8 +6,25 @@
 
 附带代理修复等扩展模块，如果开着代理软件关机的时候重新启动电脑，有概率因为代理遗留进程导致无法联网。这个软件开机自启动的时候会清除遗留进程。
 
+## 功能
+- 全局快捷键切换微软拼音中英文，默认 `Win+Space`
+- 代理修复：解决第三方 VPN 异常退出后残留代理导致的断网
+
+
+## 使用
+1. 将 `artifacts\` 目录整体拷贝（或解压 `Export\WinSpaceImeToggle.zip`），双击其中的 `WinSpaceImeToggle.exe` 即可运行。
+2. 右键托盘图标 → `设置...`：
+   - `主程序选项`：开机自动启动、启用快捷键总开关、已加载模块列表
+   - `输入法工具`（输入法模块）：录制组合键、切换策略、防误触时间、防开始菜单按键
+   - `启动策略`（代理修复模块）：开机自启动时自动修复代理问题
+3. 左键单击托盘图标手动切换一次；双击打开设置。
+4. 删除运行目录 `modules` 中不需要的模块 DLL，重启程序即可移除对应功能与设置分页。
+
+
+
+
 <details>
-<summary>目录结构（GitHub 风格布局）</summary>
+<summary>目录结构</summary>
 
 
 - `src\WinSpaceImeToggle\` —— 主程序源码：`Program.cs`（入口）、`MainConfig.cs`（主配置）、`ModuleManager.cs`（模块加载）、`KeyRecorder.cs`（键位录制）、`UiAssets.cs`（字体/图标）、`TrayApplicationContext.cs`（托盘宿主）、`SettingsForm.cs`（设置界面）。只负责开机自启动开关、设置界面、托盘界面、键位录制，以及按模板渲染各模块的设置分页
@@ -44,11 +61,6 @@
 模块设置保存在 `%APPDATA%\WinSpaceImeToggle\modules\<模块Id>.ini`；主程序设置（快捷键总开关、开机自启动）保存在 `%APPDATA%\WinSpaceImeToggle\config.ini`。旧版单文件配置会在首次运行时自动迁移到模块配置。
 
 </details>
-
-## 功能
-- 全局快捷键切换微软拼音中英文，默认 `Win+Space`
-- 代理修复：解决第三方 VPN 异常退出后残留代理导致的断网
-
 
 <details>
 <summary>多语言</summary>
@@ -87,14 +99,6 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1
 
 </details>
 
-## 使用
-1. 将 `artifacts\` 目录整体拷贝（或解压 `Export\WinSpaceImeToggle.zip`），双击其中的 `WinSpaceImeToggle.exe` 即可运行。
-2. 右键托盘图标 → `设置...`：
-   - `主程序选项`：开机自动启动、启用快捷键总开关、已加载模块列表
-   - `输入法工具`（输入法模块）：录制组合键、切换策略、防误触时间、防开始菜单按键
-   - `启动策略`（代理修复模块）：开机自启动时自动修复代理问题
-3. 左键单击托盘图标手动切换一次；双击打开设置。
-4. 删除运行目录 `modules` 中不需要的模块 DLL，重启程序即可移除对应功能与设置分页。
 
 <details>
 <summary>实现原理</summary>
